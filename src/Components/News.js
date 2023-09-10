@@ -1,15 +1,25 @@
-import React, { Component } from 'react'
-import NewItem from './NewItem'
+import React, { Component } from "react";
+import NewItem from "./NewItem";
 
 export class News extends Component {
   render() {
     return (
-      <div>
-        <h1>This is New Component</h1>
-        <NewItem></NewItem>
+      <div className="container my-3">
+        <h1>Reportify - News Headlines</h1>
+        <div className="row">
+          <div className="col-md-4">
+            <NewItem title="Cricket" description="MyDescription"></NewItem>
+          </div>
+          <div className="col-md-4">
+            <NewItem title="Cricket" description="MyDescription"></NewItem>
+          </div>
+          <div className="col-md-4">
+            <NewItem title="Cricket" description="MyDescription"></NewItem>
+          </div>
+        </div>
       </div>
-    )
+    );
   }
 }
 
-export default News
+export default News;
