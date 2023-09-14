@@ -27,55 +27,32 @@ export class News extends Component {
     };
   }
 
+async Update (PageNo) {
+  const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.Category}&apiKey=ae3203ae1eb144b39303cce96d81f047&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+  this.setState({ loading: true });
+  let data = await fetch(url);
+  let parsedata = await data.json();
+  this.setState({
+    articles: parsedata.articles,
+    loading: false,
+  });
+
+}
+
   async componentDidMount() {
-    this.setState({ loading: true });
-   
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.Category}&apiKey=ae3203ae1eb144b39303cce96d81f047&page=1&pageSize=${this.props.pageSize}`;
-    let data = await fetch(url);
-    let parsedata = await data.json();
-    this.setState({
-      articles: parsedata.articles,
-      totalResults: parsedata.totalResults,
-      loading: false,
-    });
+    this.Update();
   }
 
   handlePrevClick = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=${
-      this.props.country
-    }&category=${this.props.Category}&apiKey=ae3203ae1eb144b39303cce96d81f047&page=${
-      this.state.page - 1
-    }&pageSize=${this.props.pageSize}`;
-    this.setState({ loading: true });
-    let data = await fetch(url);
-
-    let parsedata = await data.json();
-
-    this.setState({
-      page: this.state.page - 1,
-      articles: parsedata.articles,
-      loading: false,
-    });
+    this.setState({  page: this.state.page - 1})
+    this.Update();
   };
 
+
   handleNextClick = async () => {
-    if (!Math.ceil(this.state.page + 1 > this.state.totalResults / 20)) {
-      let url = `https://newsapi.org/v2/top-headlines?country=${
-        this.props.country
-      }&category=${this.props.Category}&apiKey=ae3203ae1eb144b39303cce96d81f047&page=${
-        this.state.page + 1
-      }&pageSize=${this.props.pageSize}`;
-
-      let data = await fetch(url);
-      this.setState({ loading: true });
-      let parsedata = await data.json();
-
-      this.setState({
-        page: this.state.page + 1,
-        articles: parsedata.articles,
-        loading: false,
-      });
-    }
+    this.setState({  page: this.state.page + 1})
+  
+    this.Update();
   };
 
   render() {
@@ -111,9 +88,8 @@ export class News extends Component {
           <button
             disabled={this.state.page <= 1}
             className="btn btn-dark"
-            onClick={this.handlePrevClick}
-          >
-            {" "}
+            onClick={this.handlePrevClick}>
+           
             &larr; Previous
           </button>
           <button
