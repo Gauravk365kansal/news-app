@@ -16,8 +16,13 @@ export class News extends Component {
     Category: PropTypes.string
   };
 
-  constructor() {
-    super();
+Capital_FirstLetter_title = (string) =>
+{
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+  constructor(props) {
+    super(props);
 
     this.state = {
       articles: [],
@@ -25,6 +30,7 @@ export class News extends Component {
       loading: false,
       page: 1,
     };
+    document.title = `${this.Capital_FirstLetter_title(this.props.Category)} - Reportify`;
   }
 
 async Update (PageNo) {
@@ -58,7 +64,7 @@ async Update (PageNo) {
   render() {
     return (
       <div className="container my-3">
-        <h1 className="text-center">Reportify - News Headlines</h1>
+        <h1 className="text-center">Reportify - Top {this.Capital_FirstLetter_title(this.props.Category)} Headlines</h1>
         {this.state.loading && <Spinner></Spinner>}
         <div className="row mx-3">
           {!this.state.loading &&
