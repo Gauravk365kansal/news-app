@@ -37,14 +37,18 @@ export class News extends Component {
   }
 
   async Update(PageNo) {
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.Category}&apiKey=e43c56968c6c4d789b1e9deb5433b729&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    this.props.setProgress(10);
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.Category}&apiKey=d093053d72bc40248998159804e0e67d&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
+    this.props.setProgress(30);
     let parsedata = await data.json();
+    this.props.setProgress(70);
     this.setState({
       articles: parsedata.articles,
       loading: false,
     });
+    this.props.setProgress(100);
   }
 
   async componentDidMount() {
@@ -64,7 +68,7 @@ export class News extends Component {
 
   fetchMoreData = async () => {
     this.setState({ page: this.state.page + 1 });
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.Category}&apiKey=e43c56968c6c4d789b1e9deb5433b729&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.Category}&apiKey=d093053d72bc40248998159804e0e67d&page=${this.state.page}&pageSize=${this.props.pageSize}`;
    
     let data = await fetch(url);
     let parsedata = await data.json();
@@ -89,16 +93,15 @@ export class News extends Component {
           dataLength={this.state.articles.length}
           next={this.fetchMoreData}
           hasMore={this.state.articles.length !== this.state.totalResults}
-         
-        // loader={
+        //   loader={
         //      <Spinner />
           
         // }
         >
           <div className="row mx-3">
-            {this.state.articles.map((element) => {
+            {this.state.articles.map((element,index) => {
               return (
-                <div className="col-md-4" key={element.url}>
+                <div className="col-md-4" key={index}>
                   <NewItem title={element.title !== null ? element.title.slice(0, 45) : "" }
                   description={element.description !== null ? element.description.slice(0, 90) : ""}
                     imageUrl={element.urlToImage}
