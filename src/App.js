@@ -25,6 +25,7 @@ setProgress = (progress) => {
         <LoadingBar height={3} color='#f11946' progress={this.state.progress} 
         /> 
         <Routes>
+        <Route exact path="/" element={<News setProgress={this.setProgress} key="general" pageSize = {this.pageSize} country = "in" Category = "general"></News>}/>
         <Route exact path="/home" element={<News setProgress={this.setProgress} key="general" pageSize = {this.pageSize} country = "in" Category = "general"></News>}/>
         <Route exact path="/business" element={<News setProgress={this.setProgress} key="business" pageSize = {this.pageSize} country = "in" Category = "business"></News>}/>
         <Route exact path="/entertainment" element={<News setProgress={this.setProgress} key="entertainment" pageSize = {this.pageSize} country = "in" Category = "entertainment"></News>}/>
