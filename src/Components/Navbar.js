@@ -61,6 +61,16 @@ const Navbar = () => {
                   Technology
                 </Link>
               </li>
+              {/* <li className="nav-item">
+                <Link className="nav-link" to="/tourism">
+                  Tourism
+                </Link>
+              </li> */}
+                {/* <li className="nav-item">
+                <Link className="nav-link" to="/Videos">
+                  Videos
+                </Link>
+              </li>  */}
             </ul>
           </div>
         </div>
